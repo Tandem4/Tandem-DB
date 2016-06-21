@@ -1,0 +1,17 @@
+{
+  "name": "tandem-db",
+  "version": "1.0.0",
+  "description": "MySQL database for Tandem",
+  "scripts": {
+    "test"  : "echo \"Error: no test specified\" && exit 1",
+    "seed": "node unseed.js && node build.js && node seed.js"
+  },
+  "author": "Nicole Skoglund",
+  "license": "ISC",
+  "dependencies": {
+    "bookshelf": "^0.9.5",
+    "express": "^4.14.0",
+    "knex": "^0.11.7",
+    "mysql": "^2.11.1"
+  }
+}
