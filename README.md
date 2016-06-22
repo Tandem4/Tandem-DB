@@ -1,3 +1,12 @@
+## Tandem DB Usage ##
+
+1.  To use, simply `npm install tandem-db` in your project directory
+
+2.  Add `TANDEM_DB_HOST` and `TANDEM_DB_PW` environment variables on your machine
+
+3.  Enjoy :)
+
+
 ## Tandem DB Local Setup ##
 
 1. Initialize a mySQL server:
