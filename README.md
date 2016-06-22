@@ -1,8 +1,17 @@
 ## Tandem DB Usage ##
 
-1.  To use, simply `npm install tandem-db` in your project directory
+1.  To use, simply run in your project directory:
 
-2.  Add `TANDEM_DB_HOST` and `TANDEM_DB_PW` environment variables on your machine
+    ```
+    npm install tandem-db
+    ```
+
+2.  See `config.js`: Add environment variables on your machine
+
+    ```
+    TANDEM_DB_HOST
+    TANDEM_DB_PW
+    ```
 
 3.  Enjoy :)
 
