@@ -40,3 +40,10 @@ To see privileges on the account you've just created:
     export TANDEM_DB_PW='your_password'
     ```
 
+6. To re-seed the database, run:
+
+    ```
+    npm run seed
+    ```
+
+
