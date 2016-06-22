@@ -1,3 +1,5 @@
+## Tandem DB Local Setup ##
+
 1. Initialize a mySQL server:
 
     ```
@@ -20,7 +22,7 @@
     ```
     mysql> USE tandem;
     ```
-4. Create account and specifiy privileges. Here, we will be creating an `admin` account with a password of your choice, connection from `localhost` and all access to the database, `tandem`. More information about users and privileges can be found [here](http://dev.mysql.com/doc/refman/5.7/en/adding-users.html "mysql Docs") AND [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql "Digital Ocean's How-to")
+4. Create account and specifiy privileges. Here, we will be creating a `tandem` account with a password of your choice, connection from `localhost` and all access to the database, `tandem`. More information about users and privileges can be found [here](http://dev.mysql.com/doc/refman/5.7/en/adding-users.html "mysql Docs") AND [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql "Digital Ocean's How-to")
 
     ```
     mysql> CREATE USER 'tandem'@'localhost' IDENTIFIED BY 'your_password';

@@ -3,7 +3,7 @@
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host     : 'tandem.c0i1wtzg0ml2.us-west-1.rds.amazonaws.com',
+    host     : process.env.TANDEM_DB_HOST || '127.0.0.1',
     user     : 'tandem',
     password : process.env.TANDEM_DB_PW || 'oops',
     database : 'tandem',
@@ -13,6 +13,7 @@ var knex = require('knex')({
 });
 
 // create a bookshelf instance on top of our knex client instance
+// Note: bookshelf can drop down to raw knex interface whenever necessary
 var bookshelf = require('bookshelf')(knex);
 
 // Register models in a central location so that you can refer to them using a string in relations
@@ -23,5 +24,3 @@ bookshelf.plugin('registry');
 // Schema declarations occur in build.js during `npm run seed`
 // this bookshelf instance will be used throughout our library
 module.exports = bookshelf;
-
-// Note: bookshelf can drop down to raw knex interface whenever necessary
