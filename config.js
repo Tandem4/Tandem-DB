@@ -3,7 +3,7 @@
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host     : '127.0.0.1',
+    host     : 'tandem.c0i1wtzg0ml2.us-west-1.rds.amazonaws.com',
     user     : 'tandem',
     password : process.env.TANDEM_DB_PW || 'oops',
     database : 'tandem',

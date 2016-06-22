@@ -31,7 +31,6 @@ bookshelf.knex.schema.createTable('users', function(user) {
 
       // foreign keys - user_id will be null for default publications
       rankedTrend.integer('user_id').unsigned().references('users.id').nullable();
-      // rankedTrend.integer('trend_name').unsigned().references('trends.trend_name');
     })
     .then( function() {
       console.log('creating publications table');
