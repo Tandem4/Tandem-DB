@@ -30,7 +30,7 @@ bookshelf.knex.schema.createTable('users', function(user) {
       rankedTrend.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());
 
       // foreign keys - user_id will be null for default publications
-      rankedTrend.integer('user_id').unsigned().references('users.id').nullable();
+      // rankedTrend.integer('user_id').unsigned().references('users.id').nullable();
     })
     .then( function() {
 
@@ -38,10 +38,10 @@ bookshelf.knex.schema.createTable('users', function(user) {
         publication.increments('id').primary();
         publication.string('pub_name', 100);
         publication.string('pub_url', 255);
-        publication.string('pub_type', 10);
+        // publication.string('pub_type', 10);
 
         // foreign key - user_id will be null for default publications
-        publication.integer('user_id').unsigned().references('users.id').nullable() ;
+        // publication.integer('user_id').unsigned().references('users.id').nullable() ;
 
       }).then( function () {
 
@@ -51,12 +51,25 @@ bookshelf.knex.schema.createTable('users', function(user) {
           article.string('article_url', 255);
           article.string('image_url', 255);
           article.integer('frequency_viewed');
-          article.integer('sentiment_score');
           article.date('source_publish_date');
+
+          // ibm watson api results
+          article.integer('watson_anger');
+          article.integer('watson_disgust');
+          article.integer('watson_fear');
+          article.integer('watson_happiness');
+          article.integer('watson_sadness');
+          article.integer('watson_analytical');
+          article.integer('watson_confident');
+          article.integer('watson_tentative');
+          article.integer('watson_openness');
+          article.integer('watson_conscientiousness');
+          article.integer('watson_extraversion');
+          article.integer('watson_agreeableness');
+          article.integer('watson_emotionalRange');
 
           // defaults to textType 'text'; 'mediumtext' and 'longtext' also available
           article.text('lead_paragraph');
-          article.text('full_text', 'longtext');
 
           // adds a created_at and updated_at column, setting each to dateTime
           article.timestamps();

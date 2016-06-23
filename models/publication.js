@@ -6,9 +6,9 @@ var Publication = bookshelf.Model.extend({
   tableName: 'publications',
 
   // a (custom) publication belongs to one user
-  user: function() {
-    return this.belongsTo('User');
-  },
+  // user: function() {
+  //   return this.belongsTo('User');
+  // },
 
   // a publication has many articles
   articles: function() {

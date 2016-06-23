@@ -33,18 +33,18 @@ User.forge({
 .then( function() {
 
   // fetch that user
-  User.forge({user_name: data.username})
-  .fetch()
-  .then( function(matchedUser) {
+  // User.forge({user_name: data.username})
+  // .fetch()
+  // .then( function(matchedUser) {
 
     // create a new Publication for this user
     // default publications will have a null user_id
     Publication.forge({
       pub_name: data.pubName,
-      pub_type: data.pubType,
+      // pub_type: data.pubType,
       pub_url : data.pubUrl,
     })
-    .save( {user_id: null})
+    .save()  // {user_id: null}
 
     // create a new Trend
     .then( function() {
@@ -59,7 +59,7 @@ User.forge({
         Rank.forge({
           trend_name: data.trend,
           rank: data.rank
-        }).save({ user_id: matchedUser.id })
+        }).save() // { user_id: matchedUser.id }
         .then( function() {
 
           // fetch the appropriate publication
@@ -78,10 +78,21 @@ User.forge({
                 "article_url"        : data.artUrl,
                 "image_url"          : data.imageUrl,
                 "frequency_viewed"   : data.freqView,
-                "sentiment_score"    : data.sentiment,
                 "lead_paragraph"     : data.text,
-                "full_text"          : data.fullText,
-                "source_publish_date": bookshelf.knex.fn.now()
+                "source_publish_date": bookshelf.knex.fn.now(),
+                "watson_anger"             : data.watsonAnger,
+                "watson_disgust"           : data.watsonDisgust,
+                "watson_fear"              : data.watsonFear,
+                "watson_happiness"         : data.watsonHappiness,
+                "watson_sadness"           : data.watsonSadness,
+                "watson_analytical"        : data.watsonAnalytical,
+                "watson_confident"         : data.watsonConfident,
+                "watson_tentative"         : data.watsonTentative,
+                "watson_openness"          : data.watsonOpenness,
+                "watson_conscientiousness" : data.watsonConscientiousness,
+                "watson_extraversion"      : data.watsonExtraversion,
+                "watson_agreeableness"     : data.watsonAgreeableness,
+                "watson_emotionalRange"    : data.watsonEmotionalRange
               }).save({
                 "pub_id"   : matchedPub.id,
                 "trend_id" : matchedTrend.id
@@ -97,7 +108,7 @@ User.forge({
             });
           });
         });
-      });
+      // });
     });
   });
 }).catch( function(err) {

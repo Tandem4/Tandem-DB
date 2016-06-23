@@ -5,9 +5,9 @@ var User = bookshelf.Model.extend({
   tableName: 'users',
 
   // a user has many (custom) publications
-  publications: function() {
-    return this.hasMany('Publication');
-  }
+  // publications: function() {
+  //   return this.hasMany('Publication');
+  // }
 
 });
 
