@@ -11,9 +11,9 @@ var Trend = bookshelf.Model.extend({
   },
 
   // a trend has one instance of rank history
-  rank: function() {
-    return this.hasOne('Rank');
-  }
+  // rank: function() {
+  //   return this.hasOne('Rank');
+  // }
 });
 
 module.exports = bookshelf.model('Trend', Trend);

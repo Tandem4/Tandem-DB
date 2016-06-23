@@ -49,18 +49,19 @@ User.forge({
     // create a new Trend
     .then( function() {
       Trend.forge({
-        trend_name: data.trend
+        trend_name: data.trend,
+        rank: data.rank
       }).save()
 
       .then( function() {
 
         // A rank history record should automatically be created every time a new Trend is entered
         // may or may not have an associated user
-        Rank.forge({
-          trend_name: data.trend,
-          rank: data.rank
-        }).save() // { user_id: matchedUser.id }
-        .then( function() {
+        // Rank.forge({
+        //   trend_name: data.trend,
+        //   rank: data.rank
+        // }).save() // { user_id: matchedUser.id }
+        // .then( function() {
 
           // fetch the appropriate publication
           Publication.forge({pub_name: data.pubName})
@@ -107,7 +108,7 @@ User.forge({
               });
             });
           });
-        });
+        // });
       // });
     });
   });

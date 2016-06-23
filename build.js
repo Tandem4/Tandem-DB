@@ -15,23 +15,24 @@ bookshelf.knex.schema.createTable('users', function(user) {
 
   bookshelf.knex.schema.createTable('trends', function(trend) {
     trend.increments('id').primary();
+    trend.integer('rank');
     trend.string('trend_name', 255);
     trend.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());
   })
-  .then(function() {
+  // .then(function() {
 
     // every time a trend is ranked, an entry is placed into the ranking_history.
-    bookshelf.knex.schema.createTable('ranking_history', function(rankedTrend) {
-      rankedTrend.increments('id').primary();
-      rankedTrend.integer('rank');
-      rankedTrend.string('trend_name', 255);
+    // bookshelf.knex.schema.createTable('ranking_history', function(rankedTrend) {
+    //   rankedTrend.increments('id').primary();
+    //   rankedTrend.integer('rank');
+    //   rankedTrend.string('trend_name', 255);
 
-      // adds a created_at and updated_at column, setting each to dateTime
-      rankedTrend.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());
+    //   // adds a created_at and updated_at column, setting each to dateTime
+    //   rankedTrend.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());
 
       // foreign keys - user_id will be null for default publications
       // rankedTrend.integer('user_id').unsigned().references('users.id').nullable();
-    })
+    // })
     .then( function() {
 
       bookshelf.knex.schema.createTable('publications', function(publication) {
@@ -89,6 +90,6 @@ bookshelf.knex.schema.createTable('users', function(user) {
           bookshelf.knex.destroy();
         });
       });
-    });
+    // });
   });
 });
