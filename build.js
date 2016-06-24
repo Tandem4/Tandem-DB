@@ -8,8 +8,12 @@ var bookshelf = require('./config.js');
 
 bookshelf.knex.schema.createTable('users', function(user) {
   user.increments('id').primary();
-  user.string('user_name', 100).unique();
-  user.string('email', 100).unique();
+  user.string('email_address', 100).unique();
+  user.string('link_uuid', 255);
+  user.string('api_key', 255);
+  user.string('api_secret', 255);
+  user.boolean('verified');
+  user.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());  // to be used as salt
 })
 .then(function () {
 

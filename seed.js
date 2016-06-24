@@ -26,8 +26,11 @@ var data = require('./data.json');
 
 // create a new user
 User.forge({
-  user_name: data.username,
-  email: data.email
+  email_address: data.emailAddress,
+  link_uuid    : data.linkUuid,
+  api_key      : data.apiKey,
+  api_secret   : data.apiSecret,
+  verified     : data.verified
 })
 .save()
 .then( function() {
