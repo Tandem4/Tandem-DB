@@ -2,6 +2,7 @@
   "name": "tandem-db",
   "version": "1.0.6",
   "description": "MySQL database for Tandem",
+  "main": "index.js",
   "scripts": {
     "seed": "node unseed.js && node build.js && node seed.js"
   },

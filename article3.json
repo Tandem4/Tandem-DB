@@ -1,0 +1,16 @@
+{
+  "anger": 40,
+  "disgust": 3,
+  "fear": 61,
+  "joy": 10,
+  "sadness": 20,
+  "_id": "576e0fcb1a97e5ae1d450a74",
+  "type": "positive",
+  "pub_name": "bbc",
+  "pub_url": "http://www.telegraph.co.uk",
+  "title": "Creating an unhealthy world",
+  "article_url": "http://www.bbc.com/sport/cricket/36626699",
+  "image_url": "http://www.telegraph.co.uk/content/dam/spark/Spark%20Distribution%20images/GSK-laborator-small.jpg",
+  "article_date": "2016-06-22T15:17:19-07:00",
+  "article_summary": "Creating another healthier world"
+}

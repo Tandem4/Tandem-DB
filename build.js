@@ -7,7 +7,7 @@ var bookshelf = require('./config.js');
 // 'increments' creates an auto incrementing column, by default used as primary key
 
 bookshelf.knex.schema.createTable('users', function(user) {
-  user.increments('id').primary();
+  user.increments('_id').primary();
   user.string('email_address', 100).unique();
   user.string('link_uuid', 255);
   user.string('api_key', 255);
@@ -18,10 +18,11 @@ bookshelf.knex.schema.createTable('users', function(user) {
 .then(function () {
 
   bookshelf.knex.schema.createTable('trends', function(trend) {
-    trend.increments('id').primary();
-    trend.integer('rank');
+    trend.increments('_id').primary();
+    trend.float('rank');
     trend.string('trend_name', 255);
-    trend.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());
+
+    trend.timestamps();
   })
   // .then(function() {
 
@@ -40,7 +41,7 @@ bookshelf.knex.schema.createTable('users', function(user) {
     .then( function() {
 
       bookshelf.knex.schema.createTable('publications', function(publication) {
-        publication.increments('id').primary();
+        publication.increments('_id').primary();
         publication.string('pub_name', 100);
         publication.string('pub_url', 255);
         // publication.string('pub_type', 10);
@@ -51,37 +52,35 @@ bookshelf.knex.schema.createTable('users', function(user) {
       }).then( function () {
 
         bookshelf.knex.schema.createTable('processed_articles', function(article) {
-          article.increments('id').primary();
+
+          // articles inherit their id from mongo/redis
+          article.string('_id').primary();
+
           article.string('title', 255);
-          article.string('article_url', 255);
-          article.string('image_url', 255);
           article.integer('frequency_viewed');
-          article.date('source_publish_date');
+          article.string('article_date');
 
           // ibm watson api results
-          article.integer('watson_anger');
-          article.integer('watson_disgust');
-          article.integer('watson_fear');
-          article.integer('watson_happiness');
-          article.integer('watson_sadness');
-          article.integer('watson_analytical');
-          article.integer('watson_confident');
-          article.integer('watson_tentative');
-          article.integer('watson_openness');
-          article.integer('watson_conscientiousness');
-          article.integer('watson_extraversion');
-          article.integer('watson_agreeableness');
-          article.integer('watson_emotionalRange');
+          article.integer('anger');
+          article.integer('disgust');
+          article.integer('fear');
+          article.integer('joy');
+          article.integer('sadness');
+          article.string('type');
 
           // defaults to textType 'text'; 'mediumtext' and 'longtext' also available
-          article.text('lead_paragraph');
+          article.text('article_summary');
+
+          // urls are of unknown length
+          article.text('article_url');
+          article.text('image_url');
 
           // adds a created_at and updated_at column, setting each to dateTime
           article.timestamps();
 
           // foreign keys
-          article.integer('pub_id').unsigned().references('publications.id');
-          article.integer('trend_id').unsigned().references('trends.id');
+          article.integer('pub_id').unsigned().references('publications._id');
+          // article.integer('trend_id').unsigned().references('trends._id');
 
         })
         .then( function() {

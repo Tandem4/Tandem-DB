@@ -13,9 +13,9 @@ var Article = bookshelf.Model.extend({
   },
 
   // an article has one trend
-  trend: function() {
-    return this.belongsTo('Trend');
-  }
+  // trend: function() {
+  //   return this.belongsTo('Trend');
+  // }
 });
 
 // the Registry plugin allows us to refer to a model via a string
