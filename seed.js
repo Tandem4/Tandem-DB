@@ -22,11 +22,11 @@ var Ranks        = require('./collections/ranks.js');
 var Rank         = require('./models/rank.js');
 
 // require seed data
-var data = require('./data.json');
+var data = require('./data/data.json');
 
-var article1 = require('./article1.json');
-var article2 = require('./article2.json');
-var article3 = require('./article3.json');
+var article1 = require('./data/article1.json');
+var article2 = require('./data/article2.json');
+var article3 = require('./data/article3.json');
 
 // create a new user
 User.forge({

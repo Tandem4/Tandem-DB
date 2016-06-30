@@ -9,6 +9,8 @@
   "author": "NCSkoglund",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^0.8.7",
+    "bluebird": "^3.4.1",
     "bookshelf": "^0.9.5",
     "knex": "^0.11.7",
     "mysql": "^2.11.1"
