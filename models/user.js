@@ -1,4 +1,3 @@
-//TODO: Send revised model code here to Nicole to update 'tandem-db' npm package
 var bookshelf = require('../config.js');
 var bcrypt = require('bcrypt');
 var Promise = require('bluebird');
@@ -30,11 +29,6 @@ var User = bookshelf.Model.extend({
   authenticate: function(plainTextPassword) {
     return bcrypt.compareSync(plainTextPassword, this.attributes.api_key);
   }
-
-  // a user has many (custom) publications
-  // publications: function() {
-  //   return this.hasMany('Publication');
-  // }
 
 });
 

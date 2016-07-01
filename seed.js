@@ -1,11 +1,3 @@
-/**
- *  To clear, re-build and re-seed the database, run:
- *
- *    `npm run seed`
- *
- *  This will populate your database with the initial data from `data.json`
- */
-
 // connect to our database and all table schema
 var bookshelf = require('./config.js');
 
@@ -24,82 +16,85 @@ var Rank         = require('./models/rank.js');
 // require seed data
 var data = require('./data/data.json');
 
-// load the five publications to be crawled
-Publication.forge({
-  pub_name: 'Washington Post',
-  pub_url : 'http://www.washingtonpost.com',
-})
-.save();
+module.exports = function() {
 
-Publication.forge({
-  pub_name: 'BBC',
-  pub_url : 'http://www.bbc.com/news',
-})
-.save();
+  // load the five publications to be crawled
+  Publication.forge({
+    pub_name: 'Washington Post',
+    pub_url : 'http://www.washingtonpost.com',
+  })
+  .save();
 
-Publication.forge({
-  pub_name: 'NPR',
-  pub_url : 'http://www.npr.org/sections/news',
-})
-.save();
+  Publication.forge({
+    pub_name: 'BBC',
+    pub_url : 'http://www.bbc.com/news',
+  })
+  .save();
 
-Publication.forge({
-  pub_name: 'NYTimes',
-  pub_url : 'http://www.nytimes.com/pages/todayspaper/index.html?action=Click&module=HPMiniNav&region=TopBar&WT.nav=page&contentCollection=TodaysPaper&pgtype=Homepage',
-})
-.save();
+  Publication.forge({
+    pub_name: 'NPR',
+    pub_url : 'http://www.npr.org/sections/news',
+  })
+  .save();
 
-Publication.forge({
-  pub_name: 'Telegraph',
-  pub_url : 'http://www.telegraph.co.uk/news/world/',
-})
-.save();
+  Publication.forge({
+    pub_name: 'NYTimes',
+    pub_url : 'http://www.nytimes.com/pages/todayspaper/index.html?action=Click&module=HPMiniNav&region=TopBar&WT.nav=page&contentCollection=TodaysPaper&pgtype=Homepage',
+  })
+  .save();
 
-// load one dummy record into other tables
-User.forge({
-  email_address: data.emailAddress,
-  link_uuid    : data.linkUuid,
-  api_key      : data.apiKey,
-  api_secret   : data.apiSecret,
-  verified     : data.verified
-})
-.save()
-.then( function() {
+  Publication.forge({
+    pub_name: 'Telegraph',
+    pub_url : 'http://www.telegraph.co.uk/news/world/',
+  })
+  .save();
 
-  Trend.forge({
-    "trend_name": data.trend,
-    "rank": data.rank
-  }).save()
+  // load one dummy record into other tables
+  User.forge({
+    email_address: data.emailAddress,
+    link_uuid    : data.linkUuid,
+    api_key      : data.apiKey,
+    api_secret   : data.apiSecret,
+    verified     : data.verified
+  })
+  .save()
   .then( function() {
 
-    // create a new Article for this Trend
-    Article.forge({
-      "_id"                : data._id,
-      "title"              : data.artTitle,
-      "article_url"        : data.artUrl,
-      "image_url"          : data.imageUrl,
-      "frequency_viewed"   : data.freqView,
-      "article_summary"    : data.text,
-      "article_date"       : bookshelf.knex.fn.now(),
-      "anger"              : data.watsonAnger,
-      "disgust"            : data.watsonDisgust,
-      "fear"               : data.watsonFear,
-      "joy"                : data.watsonJoy,
-      "sadness"            : data.watsonSadness,
-    }).save({
-      "pub_id"   : null,
-    })
+    Trend.forge({
+      "trend_name": data.trend,
+      "rank": data.rank
+    }).save()
     .then( function() {
-      console.log('SEED: successfully seeded data');
-    }).catch( function(err) {
-      console.log('SEED: an error occurred', err);
-    }).finally( function() {
 
-      // close the database connection when finished
-      bookshelf.knex.destroy();
+      // create a new Article for this Trend
+      Article.forge({
+        "_id"                : data._id,
+        "title"              : data.artTitle,
+        "article_url"        : data.artUrl,
+        "image_url"          : data.imageUrl,
+        "frequency_viewed"   : data.freqView,
+        "article_summary"    : data.text,
+        "article_date"       : bookshelf.knex.fn.now(),
+        "anger"              : data.watsonAnger,
+        "disgust"            : data.watsonDisgust,
+        "fear"               : data.watsonFear,
+        "joy"                : data.watsonJoy,
+        "sadness"            : data.watsonSadness,
+      }).save({
+        "pub_id"   : null,
+      })
+      .then( function() {
+        console.log('SEED: successfully seeded data');
+      }).catch( function(err) {
+        console.log('SEED: an error occurred', err);
+      }).finally( function() {
+
+        // close the database connection when finished
+        bookshelf.knex.destroy();
+      });
     });
+  }).catch( function(err) {
+    console.log('Error: user information must be unique.', err);
+    bookshelf.knex.destroy();
   });
-}).catch( function(err) {
-  console.log('Error: user information must be unique.', err);
-  bookshelf.knex.destroy();
-});
+};

@@ -1,24 +1,47 @@
-/*!
- * tandem-db
- * v1.0.1
- * MySQL database for Tandem
- */
+ /*!
+  *  Tandem-db: MySQL database for Tandem
+  *
+  *  To clear, re-build and re-seed the database, run:
+  *
+  *    `npm run seed`
+  *
+  *  This will populate your database with the initial data from `data.json`
+  */
 
-// mysql connection
-exports.db           = require('./config.js');
+var dbConnection = require('./config.js');
+
+// Rebuild database
+var rebuild = require('./build.js');
+var reseed  = require('./seed.js');
 
 // Bookshelf models and collections
-exports.Users        = require('./collections/users.js');
-exports.User         = require('./models/user.js');
-exports.Trends       = require('./collections/trends.js');
-exports.Trend        = require('./models/trend.js');
-// exports.Ranks        = require('./collections/ranks.js');
-// exports.Rank         = require('./models/rank.js');
-exports.Publications = require('./collections/publications.js');
-exports.Publication  = require('./models/publication.js');
-exports.Articles     = require('./collections/articles.js');
-exports.Article      = require('./models/article.js');
+var Users        = require('./collections/users.js');
+var User         = require('./models/user.js');
+var Trends       = require('./collections/trends.js');
+var Trend        = require('./models/trend.js');
+var Publications = require('./collections/publications.js');
+var Publication  = require('./models/publication.js');
+var Articles     = require('./collections/articles.js');
+var Article      = require('./models/article.js');
 
-exports.printGreeting = function() {
-  console.log("Hello world from tandem-db!");
+module.exports = {
+
+  db  : dbConnection,
+  Users       : Users,
+  User        : User,
+  Trends      : Trends,
+  Trend       : Trend,
+  Publications: Publications,
+  Publication : Publication,
+  Articles    : Articles,
+  Article     : Article,
+
+  seed: function() {
+    rebuild(reseed);
+  },
+
+  printGreeting: function() {
+    console.log("Hello world from tandem-db!");
+  }
+
 };

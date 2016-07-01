@@ -4,7 +4,7 @@
   "description": "MySQL database for Tandem",
   "main": "index.js",
   "scripts": {
-    "seed": "node unseed.js && node build.js && node seed.js"
+    "seed": "node rebuild.js"
   },
   "author": "NCSkoglund",
   "license": "ISC",

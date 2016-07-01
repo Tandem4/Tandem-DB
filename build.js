@@ -5,94 +5,85 @@ var bookshelf = require('./config.js');
 /************************************************************/
 
 // 'increments' creates an auto incrementing column, by default used as primary key
+module.exports = function(callback) {
 
-bookshelf.knex.schema.createTable('users', function(user) {
-  user.increments('_id').primary();
-  user.string('email_address', 100).unique();
-  user.string('link_uuid', 255);
-  user.string('api_key', 255);
-  user.string('api_secret', 255);
-  user.boolean('verified');
-  user.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());  // to be used as salt
-})
-.then(function () {
+// drop all preexisting data
+bookshelf.knex.schema
+  .dropTableIfExists('article_trend')
+  .dropTableIfExists('processed_articles')
+  .dropTableIfExists('publications')
+  .dropTableIfExists('trends')
+  .dropTableIfExists('users')
+  .then( function() {
+    console.log('UNSEED: previous data dropped');
 
-  bookshelf.knex.schema.createTable('trends', function(trend) {
-    trend.increments('_id').primary();
-    trend.float('rank');
-    trend.string('trend_name', 255);
+    // rebuild schema
+    bookshelf.knex.schema.createTable('users', function(user) {
+      user.increments('_id').primary();
+      user.string('email_address', 100).unique();
+      user.string('link_uuid', 255);
+      user.string('api_key', 255);
+      user.string('api_secret', 255);
+      user.boolean('verified');
+      user.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());  // to be used as salt
 
-    trend.timestamps();
-  })
-  // .then(function() {
+    }).then( function() {
+      bookshelf.knex.schema.createTable('trends', function(trend) {
+        trend.increments('_id').primary();
+        trend.float('rank');
+        trend.string('trend_name', 255);
+        trend.timestamps();
 
-    // every time a trend is ranked, an entry is placed into the ranking_history.
-    // bookshelf.knex.schema.createTable('ranking_history', function(rankedTrend) {
-    //   rankedTrend.increments('id').primary();
-    //   rankedTrend.integer('rank');
-    //   rankedTrend.string('trend_name', 255);
+      }).then( function() {
+        bookshelf.knex.schema.createTable('publications', function(publication) {
+          publication.increments('_id').primary();
+          publication.string('pub_name', 100);
+          publication.string('pub_url', 255);
 
-    //   // adds a created_at and updated_at column, setting each to dateTime
-    //   rankedTrend.timestamp('created_at').defaultTo(bookshelf.knex.fn.now());
+        }).then( function() {
 
-      // foreign keys - user_id will be null for default publications
-      // rankedTrend.integer('user_id').unsigned().references('users.id').nullable();
-    // })
-    .then( function() {
+          bookshelf.knex.schema.createTable('processed_articles', function(article) {
 
-      bookshelf.knex.schema.createTable('publications', function(publication) {
-        publication.increments('_id').primary();
-        publication.string('pub_name', 100);
-        publication.string('pub_url', 255);
-        // publication.string('pub_type', 10);
+            // articles inherit their id from mongo
+            article.increments('_id').primary();
+            // article.string('_id').primary();
+            article.string('title', 255);
+            article.integer('frequency_viewed');
+            article.string('article_date');
 
-        // foreign key - user_id will be null for default publications
-        // publication.integer('user_id').unsigned().references('users.id').nullable() ;
+            // defaults to textType 'text'; 'mediumtext' and 'longtext' also available
+            article.text('article_summary');
+            article.text('article_url');
+            article.text('image_url');
 
-      }).then( function () {
+            // ibm watson api results
+            article.integer('anger');
+            article.integer('disgust');
+            article.integer('fear');
+            article.integer('joy');
+            article.integer('sadness');
+            article.string('type');
+            article.timestamps();
 
-        bookshelf.knex.schema.createTable('processed_articles', function(article) {
+            // foreign keys
+            article.integer('pub_id').unsigned().references('publications._id');
 
-          // articles inherit their id from mongo/redis
-          article.string('_id').primary();
+          }).then( function() {
+            bookshelf.knex.schema.createTable('article_trend', function(join) {
 
-          article.string('title', 255);
-          article.integer('frequency_viewed');
-          article.string('article_date');
+              // foreign keys
+              join.integer('trend_id').unsigned().references('trends._id');
+              join.integer('article_id').unsigned().references('processed_articles._id');
 
-          // ibm watson api results
-          article.integer('anger');
-          article.integer('disgust');
-          article.integer('fear');
-          article.integer('joy');
-          article.integer('sadness');
-          article.string('type');
-
-          // defaults to textType 'text'; 'mediumtext' and 'longtext' also available
-          article.text('article_summary');
-
-          // urls are of unknown length
-          article.text('article_url');
-          article.text('image_url');
-
-          // adds a created_at and updated_at column, setting each to dateTime
-          article.timestamps();
-
-          // foreign keys
-          article.integer('pub_id').unsigned().references('publications._id');
-          // article.integer('trend_id').unsigned().references('trends._id');
-
-        })
-        .then( function() {
-          console.log('BUILD: Successfully built schema');
-        }).catch( function(err) {
-          console.log('BUILD: An error occurred', err);
-        })
-        // close the database connection when finished
-        .finally( function() {
-          bookshelf.knex.destroy();
+            }).then( function(res) {
+              console.log('BUILD: Successfully built schema');
+              callback();
+            }).catch( function(err) {
+              console.log('BUILD: An error occurred', err);
+            });
+          });
         });
       });
-    // });
+    });
   });
-});
+};
