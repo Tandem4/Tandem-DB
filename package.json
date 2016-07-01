@@ -1,13 +1,16 @@
 {
   "name": "tandem-db",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "MySQL database for Tandem",
+  "main": "index.js",
   "scripts": {
     "seed": "node unseed.js && node build.js && node seed.js"
   },
   "author": "NCSkoglund",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^0.8.7",
+    "bluebird": "^3.4.1",
     "bookshelf": "^0.9.5",
     "knex": "^0.11.7",
     "mysql": "^2.11.1"

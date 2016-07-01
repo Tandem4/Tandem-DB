@@ -22,7 +22,11 @@ var Ranks        = require('./collections/ranks.js');
 var Rank         = require('./models/rank.js');
 
 // require seed data
-var data = require('./data.json');
+var data = require('./data/data.json');
+
+var article1 = require('./data/article1.json');
+var article2 = require('./data/article2.json');
+var article3 = require('./data/article3.json');
 
 // create a new user
 User.forge({
@@ -44,16 +48,16 @@ User.forge({
     // default publications will have a null user_id
     Publication.forge({
       pub_name: data.pubName,
-      // pub_type: data.pubType,
       pub_url : data.pubUrl,
+      // pub_type: data.pubType,
     })
     .save()  // {user_id: null}
 
     // create a new Trend
     .then( function() {
       Trend.forge({
-        trend_name: data.trend,
-        rank: data.rank
+        "trend_name": data.trend,
+        "rank": data.rank
       }).save()
 
       .then( function() {
@@ -78,44 +82,119 @@ User.forge({
 
               // create a new Article for this Trend/Publication
               Article.forge({
+                "_id"                : data._id,
                 "title"              : data.artTitle,
                 "article_url"        : data.artUrl,
                 "image_url"          : data.imageUrl,
                 "frequency_viewed"   : data.freqView,
-                "lead_paragraph"     : data.text,
-                "source_publish_date": bookshelf.knex.fn.now(),
-                "watson_anger"             : data.watsonAnger,
-                "watson_disgust"           : data.watsonDisgust,
-                "watson_fear"              : data.watsonFear,
-                "watson_happiness"         : data.watsonHappiness,
-                "watson_sadness"           : data.watsonSadness,
-                "watson_analytical"        : data.watsonAnalytical,
-                "watson_confident"         : data.watsonConfident,
-                "watson_tentative"         : data.watsonTentative,
-                "watson_openness"          : data.watsonOpenness,
-                "watson_conscientiousness" : data.watsonConscientiousness,
-                "watson_extraversion"      : data.watsonExtraversion,
-                "watson_agreeableness"     : data.watsonAgreeableness,
-                "watson_emotionalRange"    : data.watsonEmotionalRange
+                "article_summary"    : data.text,
+                "article_date"       : bookshelf.knex.fn.now(),
+                "anger"              : data.watsonAnger,
+                "disgust"            : data.watsonDisgust,
+                "fear"               : data.watsonFear,
+                "joy"                : data.watsonJoy,
+                "sadness"            : data.watsonSadness,
               }).save({
                 "pub_id"   : matchedPub.id,
-                "trend_id" : matchedTrend.id
-              }).then( function() {
-                console.log('SEED: successfully seeded data');
-              }).catch( function(err) {
-                console.log('SEED: an error occurred', err);
-              }).finally( function() {
+                // "trend_id" : matchedTrend.id
+              })
+              // forge some extra articles for testing
+              // .then( function() {
 
-                // close the database connection when finished
-                bookshelf.knex.destroy();
+                // .then( function() {
+
+                  // .then( function() {
+
+                    .then( function() {
+                      console.log('SEED: successfully seeded data');
+                    }).catch( function(err) {
+                      console.log('SEED: an error occurred', err);
+                    }).finally( function() {
+
+                      // close the database connection when finished
+                      bookshelf.knex.destroy();
+                    });
+                  });
+                });
               });
             });
-          });
+          // });
         // });
       // });
-    });
-  });
+    // });
+  // });
 }).catch( function(err) {
   console.log('Error: user information must be unique.', err);
   bookshelf.knex.destroy();
 });
+
+// forge some extra articles
+
+Article.forge({
+  "_id"                : article1._id,
+  "title"              : article1.title,
+  "article_url"        : article1.article_url,
+  "image_url"          : article1.image_url,
+  "frequency_viewed"   : article1.frequency_viewed,
+  "article_summary"    : article1.article_summary,
+  "article_date"       : bookshelf.knex.fn.now(),
+  "anger"              : article1.anger,
+  "disgust"            : article1.disgust,
+  "fear"               : article1.fear,
+  "joy"                : article1.joy,
+  "sadness"            : article1.sadness
+
+  // pub_id is returning null
+}).save({"pub_id": null});
+
+Article.forge({
+  "_id"                : article2._id,
+  "title"              : article2.title,
+  "article_url"        : article2.article_url,
+  "image_url"          : article2.image_url,
+  "frequency_viewed"   : article2.frequency_viewed,
+  "article_summary"    : article2.article_summary,
+  "article_date"       : bookshelf.knex.fn.now(),
+  "anger"              : article2.anger,
+  "disgust"            : article2.disgust,
+  "fear"               : article2.fear,
+  "joy"                : article2.joy,
+  "sadness"            : article2.sadness
+
+  // pub_id is returning null
+}).save({"pub_id": null});
+
+Article.forge({
+  "_id"                : article3._id,
+  "title"              : article3.title,
+  "article_url"        : article3.article_url,
+  "image_url"          : article3.image_url,
+  "frequency_viewed"   : article3.frequency_viewed,
+  "article_summary"    : article3.article_summary,
+  "article_date"       : bookshelf.knex.fn.now(),
+  "anger"              : article3.anger,
+  "disgust"            : article3.disgust,
+  "fear"               : article3.fear,
+  "joy"                : article3.joy,
+  "sadness"            : article3.sadness
+
+  // pub_id is returning null
+}).save({"pub_id": null});
+
+
+// make some more trends
+Trend.forge({
+  trend_name: "britain",
+  rank: data.rank
+}).save();
+
+Trend.forge({
+  trend_name: "cricket",
+  rank: data.rank
+}).save();
+
+Trend.forge({
+  trend_name: "flooding",
+  rank: data.rank
+}).save();
+

@@ -1,0 +1,16 @@
+{
+  "anger": 4,
+  "disgust": 32,
+  "fear": 6,
+  "joy": 80,
+  "sadness": 2,
+  "_id": "576e0fcb1a97e5ae1d450a73",
+  "type": "positive",
+  "pub_name": "usa today",
+  "pub_url": "http://www.telegraph.co.uk",
+  "title": "Creating a uppity world",
+  "article_url": "http://www.bbc.com/news/uk-politics-32810887",
+  "image_url": "http://www.telegraph.co.uk/content/dam/spark/Spark%20Distribution%20images/GSK-laborator-small.jpg",
+  "article_date": "2016-06-23T15:17:19-07:00",
+  "article_summary": "Creating another healthier world"
+}
