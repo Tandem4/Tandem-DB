@@ -20,31 +20,31 @@ module.exports = function() {
 
   // load the five publications to be crawled
   Publication.forge({
-    pub_name: 'Washington Post',
+    pub_name: 'washington post',
     pub_url : 'http://www.washingtonpost.com',
   })
   .save();
 
   Publication.forge({
-    pub_name: 'BBC',
+    pub_name: 'bbc',
     pub_url : 'http://www.bbc.com/news',
   })
   .save();
 
   Publication.forge({
-    pub_name: 'NPR',
+    pub_name: 'npr',
     pub_url : 'http://www.npr.org/sections/news',
   })
   .save();
 
   Publication.forge({
-    pub_name: 'NYTimes',
+    pub_name: 'nytimes',
     pub_url : 'http://www.nytimes.com/pages/todayspaper/index.html?action=Click&module=HPMiniNav&region=TopBar&WT.nav=page&contentCollection=TodaysPaper&pgtype=Homepage',
   })
   .save();
 
   Publication.forge({
-    pub_name: 'Telegraph',
+    pub_name: 'telegraph',
     pub_url : 'http://www.telegraph.co.uk/news/world/',
   })
   .save();
