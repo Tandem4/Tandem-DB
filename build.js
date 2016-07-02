@@ -63,14 +63,14 @@ bookshelf.knex.schema
             article.timestamps();
 
             // foreign keys
-            article.integer('pub_id').unsigned().references('publications._id');
+            article.integer('pub_id').unsigned().references('publications.id');
 
           }).then( function() {
             bookshelf.knex.schema.createTable('processed_articles_trends', function(join) {
 
               // foreign keys
-              join.integer('trend_id').unsigned().references('trends._id');
-              join.integer('processed_article_id').unsigned().references('processed_articles._id');
+              join.integer('trend_id').unsigned().references('trends.id');
+              join.integer('processed_article_id').unsigned().references('processed_articles.id');
 
             }).then( function(res) {
               console.log('BUILD: Successfully built schema');
