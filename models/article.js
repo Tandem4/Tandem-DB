@@ -14,7 +14,7 @@ var Article = bookshelf.Model.extend({
 
   // an article has many trends
   trends: function() {
-    return this.hasMany('Trend');
+    return this.belongsToMany('Trend');
   }
 });
 

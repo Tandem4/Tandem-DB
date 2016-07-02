@@ -1,7 +1,6 @@
 var bookshelf = require('../config.js');
 var bcrypt = require('bcrypt');
 var Promise = require('bluebird');
-require('./publication.js');
 
 var User = bookshelf.Model.extend({
   tableName: 'users',

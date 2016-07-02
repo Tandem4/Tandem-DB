@@ -6,8 +6,6 @@
   "verified"     : false,
   "trend"        : "dummyTrend",
   "rank"         : null,
-  "pubName"      : "dummyPub",
-  "pubUrl"       : "dummyUrl.com",
   "artTitle"     : "dummyTitle",
   "artUrl"       : "dummyURL.com",
   "imageUrl"     : "dummyPic.jpg",

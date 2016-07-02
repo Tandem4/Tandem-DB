@@ -9,7 +9,7 @@ module.exports = function(callback) {
 
 // drop all preexisting data
 bookshelf.knex.schema
-  .dropTableIfExists('article_trend')
+  .dropTableIfExists('processed_articles_trends')
   .dropTableIfExists('processed_articles')
   .dropTableIfExists('publications')
   .dropTableIfExists('trends')
@@ -69,11 +69,11 @@ bookshelf.knex.schema
             article.integer('pub_id').unsigned().references('publications._id');
 
           }).then( function() {
-            bookshelf.knex.schema.createTable('article_trend', function(join) {
+            bookshelf.knex.schema.createTable('processed_articles_trends', function(join) {
 
               // foreign keys
               join.integer('trend_id').unsigned().references('trends._id');
-              join.integer('article_id').unsigned().references('processed_articles._id');
+              join.integer('processed_article_id').unsigned().references('processed_articles._id');
 
             }).then( function(res) {
               console.log('BUILD: Successfully built schema');

@@ -1,5 +1,4 @@
 var bookshelf = require('../config.js');
-require('./user.js');
 require('./article.js');
 
 var Publication = bookshelf.Model.extend({

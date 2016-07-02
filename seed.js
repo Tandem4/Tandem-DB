@@ -64,7 +64,7 @@ module.exports = function() {
       "trend_name": data.trend,
       "rank": data.rank
     }).save()
-    .then( function() {
+    .then( function(savedTrend) {
 
       // create a new Article for this Trend
       Article.forge({
@@ -82,11 +82,16 @@ module.exports = function() {
         "sadness"            : data.watsonSadness,
       }).save({
         "pub_id"   : null,
+      }).then(function(article){
+
+        // add foreign id relationship to join table
+        article.trends().attach(savedTrend);
+        // savedTrend.articles().attach(article);
       })
       .then( function() {
         console.log('SEED: successfully seeded data');
       }).catch( function(err) {
-        console.log('SEED: an error occurred', err);
+        console.log('SEED: an error occurred in seed.js', err);
       }).finally( function() {
 
         // close the database connection when finished
@@ -94,7 +99,7 @@ module.exports = function() {
       });
     });
   }).catch( function(err) {
-    console.log('Error: user information must be unique.', err);
+    console.log('Error: something went wrong in seed.js', err);
     bookshelf.knex.destroy();
   });
 };
