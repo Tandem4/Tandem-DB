@@ -19,7 +19,7 @@ bookshelf.knex.schema
 
     // rebuild schema
     bookshelf.knex.schema.createTable('users', function(user) {
-      user.increments('_id').primary();
+      user.increments('id').primary();
       user.string('email_address', 100).unique();
       user.string('link_uuid', 255);
       user.string('api_key', 255);
@@ -29,24 +29,21 @@ bookshelf.knex.schema
 
     }).then( function() {
       bookshelf.knex.schema.createTable('trends', function(trend) {
-        trend.increments('_id').primary();
+        trend.increments('id').primary();
         trend.float('rank');
         trend.string('trend_name', 255);
         trend.timestamps();
 
       }).then( function() {
         bookshelf.knex.schema.createTable('publications', function(publication) {
-          publication.increments('_id').primary();
+          publication.increments('id').primary();
           publication.string('pub_name', 100);
           publication.string('pub_url', 255);
 
         }).then( function() {
 
           bookshelf.knex.schema.createTable('processed_articles', function(article) {
-
-            // articles inherit their id from mongo
-            article.increments('_id').primary();
-            // article.string('_id').primary();
+            article.increments('id').primary();
             article.string('title', 255);
             article.integer('frequency_viewed');
             article.string('article_date');

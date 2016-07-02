@@ -68,7 +68,6 @@ module.exports = function() {
 
       // create a new Article for this Trend
       Article.forge({
-        "_id"                : data._id,
         "title"              : data.artTitle,
         "article_url"        : data.artUrl,
         "image_url"          : data.imageUrl,

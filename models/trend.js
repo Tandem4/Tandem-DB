@@ -5,11 +5,10 @@ require('./article.js');
 var Trend = bookshelf.Model.extend({
   tableName: 'trends',
   hasTimestamps: true,
-  // idAttribute: '_id',
 
   // a trend has many articles
   articles: function() {
-    return this.belongsToMany('Article');
+    return this.belongsToMany('Article', 'processed_articles_trends');
   }
 
   // a trend has one instance of rank history
