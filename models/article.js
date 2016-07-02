@@ -12,10 +12,10 @@ var Article = bookshelf.Model.extend({
     return this.belongsTo('Publication');
   },
 
-  // an article has one trend
-  // trend: function() {
-  //   return this.belongsTo('Trend');
-  // }
+  // an article has many trends
+  trends: function() {
+    return this.belongsToMany('Trend', 'processed_articles_trends');
+  }
 });
 
 // the Registry plugin allows us to refer to a model via a string
