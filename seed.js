@@ -73,7 +73,7 @@ module.exports = function() {
         "image_url"          : data.imageUrl,
         "frequency_viewed"   : data.freqView,
         "article_summary"    : data.text,
-        "article_date"       : bookshelf.knex.fn.now(),
+        "article_date"       : data.artDate,
         "anger"              : data.watsonAnger,
         "disgust"            : data.watsonDisgust,
         "fear"               : data.watsonFear,
