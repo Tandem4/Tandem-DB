@@ -20,7 +20,7 @@ module.exports = function() {
 
   // load the five publications to be crawled
   Publication.forge({
-    pub_name: 'washington post',
+    pub_name: 'washingtonpost',
     pub_url : 'http://www.washingtonpost.com',
   })
   .save();
