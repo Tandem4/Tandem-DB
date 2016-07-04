@@ -1,6 +1,6 @@
 {
   "name": "tandem-db",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "MySQL database for Tandem",
   "main": "index.js",
   "scripts": {

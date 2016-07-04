@@ -59,6 +59,7 @@ bookshelf.knex.schema
             article.integer('fear');
             article.integer('joy');
             article.integer('sadness');
+            article.integer('score');
             article.string('type');
             article.timestamps();
 

@@ -79,6 +79,8 @@ module.exports = function() {
         "fear"               : data.watsonFear,
         "joy"                : data.watsonJoy,
         "sadness"            : data.watsonSadness,
+        "score"              : data.watsonScore,
+        "type"               : data.watsonType
       }).save({
         "pub_id"   : null,
       }).then(function(article){
