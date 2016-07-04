@@ -16,5 +16,7 @@
   "watsonFear"   : 3,
   "watsonJoy"    : 8,
   "watsonSadness": 3,
+  "watsonScore"  : 50,
+  "watsonType"   : "positive",
   "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 }
