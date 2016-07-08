@@ -16,6 +16,11 @@
 3.  Enjoy :)
 
 
+## Schema Diagram
+
+  ![Site Architecture](https://raw.githubusercontent.com/Tandem4/Tandem-Analysis/master/images/DB_schema.png)
+
+
 ## Tandem DB Local Setup ##
 
 1. Initialize a mySQL server:
